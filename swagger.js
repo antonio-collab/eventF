@@ -1,5 +1,5 @@
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./'); // Ou exporte o JSON/YAML diretamente
+const swaggerDocument = require('./swagger.js'); // Ou exporte o JSON/YAML diretamente
 const express = require('express');
 const app = express();
 
