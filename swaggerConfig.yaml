@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: API de Eventos
+  description: API para criação e organização de eventos.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3333/api
+    description: Servidor local
+paths:
+  /auth/register:
+    post:
+      summary: Registrar um novo usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Usuário registrado com sucesso.
+  /auth/login:
+    post:
+      summary: Login do usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login bem-sucedido.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /events:
+    post:
+      summary: Criar um novo evento
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                date:
+                  type: string
+                  format: date
+                time:
+                  type: string
+                  format: time
+                location:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Evento criado com sucesso.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
